@@ -65,6 +65,9 @@
     <artifactId>poi</artifactId>
     <version>5.2.5</version>
 </dependency>
-
+<properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
   </dependencies>
 </project>
