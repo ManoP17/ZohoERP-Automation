@@ -60,7 +60,6 @@ public class Xls_Reader {
             int colNum = -1;
             for (int i = 0; i < row.getLastCellNum(); i++) {
                 String currentColumn = row.getCell(i).getStringCellValue().trim();
-                System.out.println("Found column: '" + currentColumn + "'");
                 if (currentColumn.equalsIgnoreCase(colName.trim())) {
                     colNum = i;
                     break;
@@ -91,7 +90,13 @@ public class Xls_Reader {
                 if (DateUtil.isCellDateFormatted(cell)) {
                     Calendar cal = Calendar.getInstance();
                     cal.setTime(cell.getDateCellValue());
-                    return (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DAY_OF_MONTH) + "/" + (cal.get(Calendar.YEAR) % 100);
+                    int day = cal.get(Calendar.DAY_OF_MONTH);
+                    int month = cal.get(Calendar.MONTH) + 1; // Calendar.MONTH is zero-based
+                    int year = cal.get(Calendar.YEAR);
+                    
+                    // Format the date as dd-MMM-yyyy
+                    String formattedDate = String.format("%02d-%s-%d", day, getMonthAbbreviation(month), year);
+                    return formattedDate;
                 } else {
                     double numericValue = cell.getNumericCellValue();
                     return numericValue == (int) numericValue ? String.valueOf((int) numericValue) : String.valueOf(numericValue);
@@ -108,6 +113,12 @@ public class Xls_Reader {
             e.printStackTrace();
             return "row " + rowNum + " or column " + colName + " does not exist in xls";
         }
+    }
+
+    // Helper method for month abbreviation
+    private String getMonthAbbreviation(int month) {
+        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        return months[month - 1];
     }
 
 }
