@@ -114,7 +114,7 @@ public class Steps {
 //		for(int rowNum = 2; rowNum <= rowCount ; rowNum++) {
 			Thread.sleep(10000);
 			Erp.Purchase.click();
-			Thread.sleep(8000);
+			Thread.sleep(10000);
 			Erp.Purchaseview.click();
 			Thread.sleep(12000);
 			Erp.Createview.click();
